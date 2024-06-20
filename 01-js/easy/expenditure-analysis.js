@@ -14,7 +14,24 @@
 */
 
 function calculateTotalSpentByCategory(transactions) {
-  return [];
+  // Create an object to store the total spent per category
+  const totalsByCategory = transactions.reduce((acc, transaction) => {
+      // If the category is not already in the accumulator, initialize it
+      if (!acc[transaction.category]) {
+          acc[transaction.category] = 0;
+      }
+      // Add the transaction's price to the corresponding category's total
+      acc[transaction.category] += transaction.price;
+      return acc;
+  }, {});
+
+  // Convert the totalsByCategory object into an array of objects
+  const result = Object.keys(totalsByCategory).map(category => {
+      return { category: category, totalSpent: totalsByCategory[category] };
+  });
+
+  return result;
 }
+
 
 module.exports = calculateTotalSpentByCategory;
